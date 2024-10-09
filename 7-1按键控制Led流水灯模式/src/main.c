@@ -41,21 +41,30 @@ void Timer0_Init(){
     PT0 = 0;//中断优先级为0
 }
 void Timer0_Routine() interrupt 1{
-    static unsigned int T0count;
-    TH0 = 64535/256;//高位
-    TL0 = 64535%256;//低位
-    T0count++;
-    if(T0count >= 1000){T0count = 0;P2_0 = ~P2_0;}
+    static unsigned int T0Count;
+    TH0 = 0xFC;//高位
+    TL0 = 0x18;//低位
+    T0Count++;
+    if(T0Count >= 500){
+        T0Count = 0;
+        if(LedMod == 0)
+        P2 = _crol_(P2,1);
+        if(LedMod == 1)
+        P2 = _cror_(P2,1); 
+    }
 }
 void main(){
+    P2 = 0xEF;
     Timer0Init();
     while(1){
         KeyNum = Key();
         if(KeyNum){
-            if(KeyNum == 1) P2_1 = ~P2_1;
-            if(KeyNum == 2) P2_2 = ~P2_2;
-            if(KeyNum == 3) P2_3 = ~P2_3;
-            if(KeyNum == 4) P2_4 = ~P2_4;
+            if(KeyNum == 1)
+            {
+                LedMod++;
+                if(LedMod >=2 ) LedMod = 0;
+            }
+           
         }
     }
 }
