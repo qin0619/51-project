@@ -61,7 +61,7 @@ void TimeSet(void){
          DS1302_Time[1] == 7 || DS1302_Time[1] == 8 || DS1302_Time == 10 ||
          DS1302_Time[1] == 12)
          {
-            if(DS1302_Time[2] < 1){DS1302_Time[2] = 31;
+            if(DS1302_Time[2] < 1){DS1302_Time[2] = 31;}
             if(DS1302_Time[2] >31){DS1302_Time[2] = 1;}
          }
       else if(DS1302_Time[1] == 4 || DS1302_Time[1] == 6 || DS1302_Time == 9 || DS1302_Time[1] == 11 )
@@ -84,7 +84,6 @@ void TimeSet(void){
       if(DS1302_Time[3] < 0) {DS1302_Time[3] = 23;}
       if(DS1302_Time[4] < 0) {DS1302_Time[4] = 59;}
       if(DS1302_Time[5] < 0) {DS1302_Time[5] = 59;}
-   }
    }
    if(TimeSetSelect == 0 && TimeSetFlashFlag == 1){
       LCD_ShowString(1,1,"  ");
